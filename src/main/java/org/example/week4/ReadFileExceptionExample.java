@@ -1,0 +1,38 @@
+package org.example.week4;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadFileExceptionExample {
+    public static void readFile(String fileName) throws IOException, FileNotFoundException{
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            String line = reader.readLine();
+            while (line != null){
+                System.out.println(line);
+                line = reader.readLine();
+            }
+        } catch (IOException fileNotFoundException){
+            System.out.printf("The file %s could not be found: %s", fileName, fileNotFoundException.getMessage());
+            throw new FileNotFoundException("file not found exception");
+
+        } finally {
+            try{
+                if(reader != null){
+                    reader.close();
+                }
+            }catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+    }
+
+    public static void main(String[] args) throws IOException {
+     readFile("C:\\Users\\user\\IdeaProjects\\IngrydTrainingProgram\\src\\main\\java\\org\\example\\jk\\textFileToReadWrite.txt");
+    }
+}
